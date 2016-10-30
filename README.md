@@ -1,2 +1,1 @@
-# Retrofit (REST call with Retrofit)
-# Recyclerview
+# Retrofit + Recyclerview
