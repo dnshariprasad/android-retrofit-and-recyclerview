@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    ConnectionsAdapter.build(MainActivity.this, (RecyclerView) findViewById(R.id.rv_contact), contactModels);
+                    ContactsAdapter.build(MainActivity.this, (RecyclerView) findViewById(R.id.rv_contact), contactModels);
                 } else {
                     Log.e(TAG, "onResponse: " + response.raw());
                 }
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             if (contactModel.contains(newText))
                 newContactModels.add(contactModel);
         }
-        ConnectionsAdapter.build(MainActivity.this, (RecyclerView) findViewById(R.id.rv_contact), newContactModels);
+        ContactsAdapter.build(MainActivity.this, (RecyclerView) findViewById(R.id.rv_contact), newContactModels);
         return false;
     }
 }

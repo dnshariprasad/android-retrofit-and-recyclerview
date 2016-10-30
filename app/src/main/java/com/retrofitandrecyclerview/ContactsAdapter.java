@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Hari Prasad on 10/21/16.
  */
 
-public class ConnectionsAdapter extends RecyclerView.Adapter<ConnectionsAdapter.HubViewHolder> {
+public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.HubViewHolder> {
     class HubViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_name;
 
@@ -32,7 +32,7 @@ public class ConnectionsAdapter extends RecyclerView.Adapter<ConnectionsAdapter.
     private Context context;
     private List<ContactModel> contactModels;
 
-    public ConnectionsAdapter(Context context, List<ContactModel> contactModels) {
+    public ContactsAdapter(Context context, List<ContactModel> contactModels) {
         this.context = context;
         this.contactModels = contactModels;
     }
@@ -41,10 +41,10 @@ public class ConnectionsAdapter extends RecyclerView.Adapter<ConnectionsAdapter.
         if (recyclerView.getAdapter() == null) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             recyclerView.setLayoutManager(linearLayoutManager);
-            ConnectionsAdapter messageModels = new ConnectionsAdapter(context, sikkaUserModels);
+            ContactsAdapter messageModels = new ContactsAdapter(context, sikkaUserModels);
             recyclerView.setAdapter(messageModels);
         } else {
-            ((ConnectionsAdapter) recyclerView.getAdapter()).rebuild(sikkaUserModels);
+            ((ContactsAdapter) recyclerView.getAdapter()).rebuild(sikkaUserModels);
         }
     }
 
