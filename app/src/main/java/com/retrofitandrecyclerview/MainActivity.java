@@ -1,9 +1,13 @@
 package com.retrofitandrecyclerview;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,8 +20,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private static final String TAG = "MainActivity";
+    private List<ContactModel> contactModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
-                    List<ContactModel> contactModels = new ArrayList<>();
+                    contactModels = new ArrayList<>();
                     Log.d(TAG, "onResponse: " + response.raw());
                     try {
                         JSONObject jsonObject = new JSONObject(response.body());
@@ -50,5 +55,36 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure: " + t.getLocalizedMessage());
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(this);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        List<ContactModel> newContactModels = new ArrayList<>();
+        for (ContactModel contactModel : contactModels) {
+            if (contactModel.contains(newText))
+                newContactModels.add(contactModel);
+        }
+        ConnectionsAdapter.build(MainActivity.this, (RecyclerView) findViewById(R.id.rv_contact), newContactModels);
+        return false;
     }
 }

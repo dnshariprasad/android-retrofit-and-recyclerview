@@ -187,6 +187,10 @@ public class ContactModel {
         }
         return jsonObject;
     }
+
+    public boolean contains(String newText) {
+        return name.toLowerCase().contains(newText.toLowerCase());
+    }
 }
 
 
